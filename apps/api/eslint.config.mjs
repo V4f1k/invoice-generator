@@ -19,6 +19,11 @@ export default [
         global: 'readonly',
         setImmediate: 'readonly',
         clearImmediate: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        fetch: 'readonly',
       }
     },
     plugins: {
