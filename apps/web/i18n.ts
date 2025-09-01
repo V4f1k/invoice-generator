@@ -13,7 +13,7 @@ export default getRequestConfig(async ({ locale }) => {
   const finalLocale = cookieLocale || locale || 'en';
   
   // Validate the locale
-  const validLocale = locales.includes(finalLocale as any) ? finalLocale : 'en';
+  const validLocale = locales.includes(finalLocale as typeof locales[number]) ? finalLocale : 'en';
 
   return {
     locale: validLocale,

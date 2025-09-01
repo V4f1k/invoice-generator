@@ -150,11 +150,14 @@ export default function SettingsPage() {
       form.setValue('automaticLegalText', aresData.registration.automaticLegalText || '', { shouldValidate: true });
       setIsRegistryEditMode(false);
       
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('ARES lookup error:', err);
       setAresError(
-        err.response?.data?.message || 
-        t('ares.lookupFailed')
+        (err && typeof err === 'object' && 'response' in err && 
+         err.response && typeof err.response === 'object' && 'data' in err.response &&
+         err.response.data && typeof err.response.data === 'object' && 'message' in err.response.data)
+         ? String(err.response.data.message)
+         : t('ares.lookupFailed')
       );
       
       // Clear fields on error

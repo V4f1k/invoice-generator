@@ -80,7 +80,7 @@ describe('InvoiceCreationModal - Reverse Charge', () => {
     jest.clearAllMocks();
     
     // Setup mock form methods
-    mockUseForm.mockReturnValue(mockFormMethods as any);
+    mockUseForm.mockReturnValue(mockFormMethods as ReturnType<typeof useForm>);
     
     // Mock supplier API to return VAT payer
     mockSupplierApi.get.mockResolvedValue({
@@ -245,7 +245,7 @@ describe('InvoiceCreationModal - Reverse Charge', () => {
   });
 
   it('should reset VAT rates to 0 when enabling reverse charge', async () => {
-    let reverseChargeState = false;
+    const reverseChargeState = false;
     
     mockFormMethods.watch.mockImplementation((field) => {
       if (field === 'items') return [{ description: 'Test', quantity: 1, unitPrice: 1000, vatRate: 21 }];
