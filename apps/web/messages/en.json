@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "title": "Invoice Generator",
+    "description": "Professional invoice generation system"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "createAccount": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "signingIn": "Signing in...",
+    "creatingAccount": "Creating account...",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Manage your invoices and business",
+    "createNewInvoice": "Create New Invoice",
+    "totalInvoices": "Total Invoices",
+    "pending": "Pending",
+    "paid": "Paid",
+    "recentInvoices": "Recent Invoices",
+    "noInvoices": "No invoices yet. Create your first invoice to get started!"
+  },
+  "invoice": {
+    "invoice": "Invoice",
+    "createNewInvoice": "Create New Invoice",
+    "invoiceNumber": "Invoice #{number}",
+    "createdOn": "Created on {date}",
+    "invalidInvoiceId": "Invalid invoice ID",
+    "failedToLoadInvoice": "Failed to load invoice",
+    "failedToDownloadPdf": "Failed to download PDF. Please try again.",
+    "issueDate": "Issue Date",
+    "dueDate": "Due Date",
+    "invoiceDates": "Invoice Dates",
+    "invoiceDetails": "Invoice Details",
+    "from": "From",
+    "billTo": "Bill To",
+    "items": "Items",
+    "description": "Description",
+    "quantity": "Quantity",
+    "unitPrice": "Unit Price",
+    "vatRate": "VAT Rate",
+    "lineTotal": "Line Total",
+    "subtotal": "Subtotal",
+    "vatAmount": "VAT Amount",
+    "total": "Total",
+    "grandTotal": "Grand Total",
+    "creating": "Creating...",
+    "createInvoice": "Create Invoice",
+    "invoiceNotFound": "Invoice not found",
+    "loadingInvoice": "Loading invoice...",
+    "backToDashboard": "Back to Dashboard",
+    "clientInformation": "Client Information",
+    "clientName": "Client Name",
+    "clientAddress": "Client Address",
+    "clientStreet": "Street",
+    "clientCity": "City",
+    "clientZipCode": "Zip Code",
+    "clientCountry": "Country",
+    "addItem": "Add Item",
+    "removeItem": "Remove Item",
+    "lineItems": "Line Items",
+    "item": "Item",
+    "lineTotal": "Line Total",
+    "grandTotal": "Grand Total",
+    "placeholders": {
+      "clientName": "Enter client name",
+      "clientAddress": "Enter client address",
+      "clientStreet": "Enter street address",
+      "clientCity": "Enter city",
+      "clientZipCode": "Enter zip code",
+      "clientCountry": "Enter country",
+      "description": "Enter item description"
+    },
+    "errors": {
+      "descriptionRequired": "Description is required",
+      "quantityMinimum": "Quantity must be greater than 0",
+      "unitPriceMinimum": "Unit price must be greater than 0",
+      "clientNameRequired": "Client name is required",
+      "clientAddressRequired": "Client address is required",
+      "issueDateRequired": "Issue date is required",
+      "dueDateRequired": "Due date is required",
+      "itemsRequired": "At least one item is required"
+    }
+  },
+  "actions": {
+    "download": "Download",
+    "downloadPdf": "Download PDF",
+    "downloading": "Downloading...",
+    "print": "Print",
+    "printInvoice": "Print Invoice",
+    "back": "Back",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "create": "Create",
+    "update": "Update"
+  },
+  "settings": {
+    "title": "Settings",
+    "companySettings": "Company Settings",
+    "languageSettings": "Language Settings",
+    "vatSettings": "VAT Settings",
+    "selectLanguage": "Select Language",
+    "profileIncomplete": "You need to complete your company profile before creating invoices.\n\nWould you like to go to Settings now?",
+    "companyDescription": "Manage your company information that will appear on invoices.",
+    "companyName": "Company Name",
+    "address": "Address",
+    "street": "Street",
+    "city": "City",
+    "zipCode": "Zip Code",
+    "country": "Country",
+    "bankAccount": "Bank Account (IBAN)",
+    "isNonVatPayer": "I am not a VAT payer",
+    "isNonVatPayerDescription": "Check this box if you are not registered as a VAT payer. When checked, the tax ID field will be disabled and the invoice PDF will show \"Not a VAT payer\".",
+    "saving": "Saving...",
+    "saveCompanyInformation": "Save Company Information",
+    "companyInformationSaved": "Company information saved successfully!",
+    "placeholders": {
+      "companyName": "Enter your company name",
+      "address": "Enter your company address",
+      "street": "Enter street address",
+      "city": "Enter city",
+      "zipCode": "Enter zip code",
+      "country": "Enter country",
+      "ico": "Company identification number",
+      "dic": "Tax identification number",
+      "bankAccount": "Enter your bank account number (IBAN)"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "close": "Close",
+    "open": "Open",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "languages": {
+    "en": "English",
+    "cs": "Čeština"
+  },
+  "ares": {
+    "lookupFailed": "Failed to fetch data from ARES",
+    "loading": "Loading data from ARES...",
+    "notFound": "Company ID not found in ARES",
+    "invalid": "Invalid company ID",
+    "inactive": "Company is not active"
+  },
+  "pages": {
+    "login": {
+      "title": "Invoice Generator",
+      "subtitle": "Sign in to your account"
+    },
+    "register": {
+      "title": "Invoice Generator",
+      "subtitle": "Create your account"
+    }
+  }
+}

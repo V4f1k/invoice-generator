@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "title": "Generátor faktur",
+    "description": "Profesionální systém pro generování faktur"
+  },
+  "navigation": {
+    "dashboard": "Přehled",
+    "settings": "Nastavení",
+    "logout": "Odhlásit se"
+  },
+  "auth": {
+    "signIn": "Přihlásit se",
+    "signUp": "Registrovat se",
+    "createAccount": "Vytvořit účet",
+    "email": "E-mail",
+    "password": "Heslo",
+    "confirmPassword": "Potvrdit heslo",
+    "signingIn": "Přihlašování...",
+    "creatingAccount": "Vytváření účtu...",
+    "dontHaveAccount": "Nemáte účet?",
+    "alreadyHaveAccount": "Už máte účet?"
+  },
+  "dashboard": {
+    "title": "Přehled",
+    "subtitle": "Spravujte své faktury a podnikání",
+    "createNewInvoice": "Vytvořit novou fakturu",
+    "totalInvoices": "Celkem faktur",
+    "pending": "Čeká na zaplacení",
+    "paid": "Zaplaceno",
+    "recentInvoices": "Nejnovější faktury",
+    "noInvoices": "Zatím žádné faktury. Vytvořte svou první fakturu a začněte!"
+  },
+  "invoice": {
+    "invoice": "Faktura",
+    "createNewInvoice": "Vytvořit novou fakturu",
+    "invoiceNumber": "Faktura č. {number}",
+    "createdOn": "Vytvořeno dne {date}",
+    "invalidInvoiceId": "Neplatné ID faktury",
+    "failedToLoadInvoice": "Nepodařilo se načíst fakturu",
+    "failedToDownloadPdf": "Nepodařilo se stáhnout PDF. Zkuste to znovu.",
+    "issueDate": "Datum vystavení",
+    "dueDate": "Datum splatnosti",
+    "invoiceDates": "Data faktury",
+    "invoiceDetails": "Detaily faktury",
+    "from": "Od",
+    "billTo": "Fakturovat",
+    "items": "Položky",
+    "description": "Popis",
+    "quantity": "Množství",
+    "unitPrice": "Jednotková cena",
+    "vatRate": "Sazba DPH",
+    "lineTotal": "Mezisoučet řádku",
+    "subtotal": "Mezisoučet",
+    "vatAmount": "DPH",
+    "total": "Celkem",
+    "grandTotal": "Celkem k úhradě",
+    "creating": "Vytváření...",
+    "createInvoice": "Vytvořit fakturu",
+    "invoiceNotFound": "Faktura nebyla nalezena",
+    "loadingInvoice": "Načítání faktury...",
+    "backToDashboard": "Zpět na přehled",
+    "clientInformation": "Informace o klientovi",
+    "clientName": "Jméno klienta",
+    "clientAddress": "Adresa klienta",
+    "clientStreet": "Ulice",
+    "clientCity": "Město",
+    "clientZipCode": "PSČ",
+    "clientCountry": "Země",
+    "addItem": "Přidat položku",
+    "removeItem": "Odstranit položku",
+    "lineItems": "Položky faktury",
+    "item": "Položka",
+    "lineTotal": "Mezisoučet řádku",
+    "grandTotal": "Celkem k úhradě",
+    "placeholders": {
+      "clientName": "Zadejte jméno klienta",
+      "clientAddress": "Zadejte adresu klienta",
+      "clientStreet": "Zadejte ulici",
+      "clientCity": "Zadejte město",
+      "clientZipCode": "Zadejte PSČ",
+      "clientCountry": "Zadejte zemi",
+      "description": "Zadejte popis položky"
+    },
+    "errors": {
+      "descriptionRequired": "Popis je povinný",
+      "quantityMinimum": "Množství musí být větší než 0",
+      "unitPriceMinimum": "Jednotková cena musí být větší než 0",
+      "clientNameRequired": "Jméno klienta je povinné",
+      "clientAddressRequired": "Adresa klienta je povinná",
+      "issueDateRequired": "Datum vystavení je povinné",
+      "dueDateRequired": "Datum splatnosti je povinné",
+      "itemsRequired": "Alespoň jedna položka je povinná"
+    }
+  },
+  "actions": {
+    "download": "Stáhnout",
+    "downloadPdf": "Stáhnout PDF",
+    "downloading": "Stahování...",
+    "print": "Tisknout",
+    "printInvoice": "Tisknout fakturu",
+    "back": "Zpět",
+    "save": "Uložit",
+    "cancel": "Zrušit",
+    "edit": "Upravit",
+    "delete": "Smazat",
+    "create": "Vytvořit",
+    "update": "Aktualizovat"
+  },
+  "settings": {
+    "title": "Nastavení",
+    "companySettings": "Nastavení společnosti",
+    "languageSettings": "Nastavení jazyka",
+    "vatSettings": "Nastavení DPH",
+    "selectLanguage": "Vyberte jazyk",
+    "profileIncomplete": "Před vytvářením faktur je třeba dokončit profil společnosti.\n\nChcete přejít do Nastavení?",
+    "companyDescription": "Spravujte informace o vaší společnosti, které se zobrazí na fakturách.",
+    "companyName": "Název společnosti",
+    "address": "Adresa",
+    "street": "Ulice",
+    "city": "Město",
+    "zipCode": "PSČ",
+    "country": "Země",
+    "bankAccount": "Bankovní účet (IBAN)",
+    "isNonVatPayer": "Nejsem plátce DPH",
+    "isNonVatPayerDescription": "Zaškrtněte toto políčko, pokud nejste registrováni jako plátce DPH. Po zaškrtnutí bude pole DIČ neaktivní a na PDF faktury se zobrazí 'Nejsem plátce DPH'.",
+    "saving": "Ukládání...",
+    "saveCompanyInformation": "Uložit informace o společnosti",
+    "companyInformationSaved": "Informace o společnosti byly úspěšně uloženy!",
+    "placeholders": {
+      "companyName": "Zadejte název vaší společnosti",
+      "address": "Zadejte adresu vaší společnosti",
+      "street": "Zadejte ulici",
+      "city": "Zadejte město",
+      "zipCode": "Zadejte PSČ",
+      "country": "Zadejte zemi",
+      "ico": "Identifikační číslo organizace",
+      "dic": "Daňové identifikační číslo",
+      "bankAccount": "Zadejte číslo bankovního účtu (IBAN)"
+    }
+  },
+  "common": {
+    "loading": "Načítání...",
+    "error": "Chyba",
+    "success": "Úspěch",
+    "close": "Zavřít",
+    "open": "Otevřít",
+    "yes": "Ano",
+    "no": "Ne"
+  },
+  "languages": {
+    "en": "English",
+    "cs": "Čeština"
+  },
+  "ares": {
+    "lookupFailed": "Nepodařilo se načíst údaje z ARESu",
+    "loading": "Načítání údajů z ARESu...",
+    "notFound": "IČO nebylo nalezeno v ARESu",
+    "invalid": "Neplatné IČO",
+    "inactive": "Společnost není aktivní"
+  },
+  "pages": {
+    "login": {
+      "title": "Generátor faktur",
+      "subtitle": "Přihlašte se do svého účtu"
+    },
+    "register": {
+      "title": "Generátor faktur",
+      "subtitle": "Vytvořte si účet"
+    }
+  }
+}

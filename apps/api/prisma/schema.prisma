@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(uuid())
+  email        String     @unique
+  passwordHash String     @map("password_hash")
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+  supplier     Supplier?
+  customers    Customer[]
+
+  @@map("users")
+}
+
+model Supplier {
+  id                     String    @id @default(uuid())
+  userId                 String    @unique @map("user_id")
+  name                   String
+  street                 String
+  city                   String
+  zipCode                String    @map("zip_code")
+  country                String    @default("Czech Republic")
+  ico                    String?
+  dic                    String?
+  bankAccount            String?   @map("bank_account")
+  isNonVatPayer          Boolean   @default(false) @map("is_non_vat_payer")
+  registrationType       String?   @map("registration_type")
+  registrationCourt      String?   @map("registration_court")
+  registrationFileNumber String?   @map("registration_file_number")
+  automaticLegalText     String?   @map("automatic_legal_text")
+  createdAt              DateTime  @default(now()) @map("created_at")
+  updatedAt              DateTime  @updatedAt @map("updated_at")
+  invoices               Invoice[]
+  user                   User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("suppliers")
+}
+
+model Customer {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  name      String
+  street    String
+  city      String
+  zipCode   String    @map("zip_code")
+  country   String    @default("Czech Republic")
+  ico       String?
+  dic       String?
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  invoices  Invoice[]
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("customers")
+}
+
+model Invoice {
+  id             String        @id @default(uuid())
+  invoiceNumber  BigInt        @map("invoice_number")
+  supplierId     String        @map("supplier_id")
+  customerId     String?       @map("customer_id")
+  clientName     String        @map("client_name")
+  clientStreet   String        @map("client_street")
+  clientCity     String        @map("client_city")
+  clientZipCode  String        @map("client_zip_code")
+  clientCountry  String        @default("Czech Republic") @map("client_country")
+  issueDate      DateTime      @map("issue_date")
+  dueDate        DateTime      @map("due_date")
+  duzp           DateTime?     @map("duzp")
+  subtotal       Decimal       @default(0) @db.Decimal(10, 2)
+  vatAmount      Decimal       @default(0) @map("vat_amount") @db.Decimal(10, 2)
+  total          Decimal       @default(0) @db.Decimal(10, 2)
+  isReverseCharge Boolean      @default(false) @map("is_reverse_charge")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+  items          InvoiceItem[]
+  supplier       Supplier      @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  customer       Customer?     @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
+  @@unique([supplierId, invoiceNumber])
+  @@map("invoices")
+}
+
+model InvoiceItem {
+  id          String   @id @default(uuid())
+  invoiceId   String   @map("invoice_id")
+  description String
+  quantity    Decimal  @db.Decimal(10, 2)
+  unitPrice   Decimal  @map("unit_price") @db.Decimal(10, 2)
+  lineTotal   Decimal  @map("line_total") @db.Decimal(10, 2)
+  vatRate     Decimal? @map("vat_rate") @db.Decimal(5, 2)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@map("invoice_items")
+}

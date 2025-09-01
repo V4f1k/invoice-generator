@@ -1,0 +1,20 @@
+{
+  "invoice": {
+    "invoiceTitle": "INVOICE",
+    "invoiceNumber": "Invoice Number",
+    "issueDate": "Issue Date",
+    "dueDate": "Due Date",
+    "from": "From",
+    "billTo": "Bill To",
+    "description": "Description",
+    "quantity": "Qty",
+    "unitPrice": "Unit Price",
+    "vatRate": "VAT Rate",
+    "total": "Total",
+    "subtotal": "Subtotal",
+    "vatAmount": "VAT Amount",
+    "grandTotal": "Grand Total",
+    "qrPayment": "QR Payment",
+    "thankYou": "Thank you for your trust and we look forward to further cooperation."
+  }
+}

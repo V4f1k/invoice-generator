@@ -1,0 +1,20 @@
+{
+  "invoice": {
+    "invoiceTitle": "FAKTURA",
+    "invoiceNumber": "Číslo faktury",
+    "issueDate": "Datum vystavení",
+    "dueDate": "Datum splatnosti",
+    "from": "Dodavatel",
+    "billTo": "Odběratel",
+    "description": "Popis",
+    "quantity": "Množství",
+    "unitPrice": "Cena/jedn.",
+    "vatRate": "Sazba DPH",
+    "total": "Celkem",
+    "subtotal": "Mezisoučet",
+    "vatAmount": "DPH",
+    "grandTotal": "Celkem k úhradě",
+    "qrPayment": "QR platba",
+    "thankYou": "Děkujeme za vaši důvěru a těšíme se na další spolupráci."
+  }
+}
