@@ -18,6 +18,9 @@ jest.mock('@/app/lib/api', () => ({
       issueDate: '2024-01-15',
       dueDate: '2024-01-29'
     })
+  },
+  customerApi: {
+    list: jest.fn().mockResolvedValue([])
   }
 }));
 
