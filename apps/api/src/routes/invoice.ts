@@ -379,13 +379,15 @@ router.get('/:id/pdf', async (req: Request, res: Response): Promise<void> => {
       vatAmount: invoice.vatAmount.toNumber(),
       total: invoice.total.toNumber(),
       isReverseCharge: invoice.isReverseCharge,
-      items: invoice.items.map(item => ({
-        description: item.description,
-        quantity: item.quantity.toNumber(),
-        unitPrice: item.unitPrice.toNumber(),
-        lineTotal: item.lineTotal.toNumber(),
-        vatRate: item.vatRate ? item.vatRate.toNumber() : null
-      })),
+      items: Array.isArray(invoice.items)
+        ? invoice.items.map(item => ({
+            description: item.description,
+            quantity: item.quantity.toNumber(),
+            unitPrice: item.unitPrice.toNumber(),
+            lineTotal: item.lineTotal.toNumber(),
+            vatRate: item.vatRate ? item.vatRate.toNumber() : null
+          }))
+        : [],
       supplier: {
         name: invoice.supplier.name,
         street: invoice.supplier.street,
