@@ -98,8 +98,8 @@ describe('CustomersPage ARES Integration', () => {
         expect(screen.getByText('Add Customer')).toBeInTheDocument();
       });
 
-      // Open create modal
-      fireEvent.click(screen.getByText('Add Customer'));
+      // Open create modal (pick the most recent instance if multiple renders exist)
+      fireEvent.click(screen.getAllByText('Add Customer').at(-1)!);
       
       // Wait for modal to open
       await waitFor(() => {
@@ -107,7 +107,7 @@ describe('CustomersPage ARES Integration', () => {
       });
 
       // Find IČO input and blur with valid IČO
-      const icoInput = screen.getByPlaceholderText('Enter IČO');
+      const icoInput = screen.getAllByPlaceholderText('Enter IČO').at(-1)!;
       
       await act(async () => {
         fireEvent.change(icoInput, { target: { value: '12345678' } });
@@ -137,13 +137,13 @@ describe('CustomersPage ARES Integration', () => {
         expect(screen.getByText('Add Customer')).toBeInTheDocument();
       });
 
-      fireEvent.click(screen.getByText('Add Customer'));
+      fireEvent.click(screen.getAllByText('Add Customer').at(-1)!);
       
       await waitFor(() => {
         expect(screen.getByText('Add New Customer')).toBeInTheDocument();
       });
 
-      const icoInput = screen.getByPlaceholderText('Enter IČO');
+      const icoInput = screen.getAllByPlaceholderText('Enter IČO').at(-1)!;
       
       await act(async () => {
         // Test with invalid formats
@@ -181,13 +181,13 @@ describe('CustomersPage ARES Integration', () => {
         expect(screen.getByText('Add Customer')).toBeInTheDocument();
       });
 
-      fireEvent.click(screen.getByText('Add Customer'));
+      fireEvent.click(screen.getAllByText('Add Customer').at(-1)!);
       
       await waitFor(() => {
         expect(screen.getByText('Add New Customer')).toBeInTheDocument();
       });
 
-      const icoInput = screen.getByPlaceholderText('Enter IČO');
+      const icoInput = screen.getAllByPlaceholderText('Enter IČO').at(-1)!;
       
       await act(async () => {
         fireEvent.change(icoInput, { target: { value: '12345678' } });
@@ -233,13 +233,13 @@ describe('CustomersPage ARES Integration', () => {
           expect(screen.getByText('Add Customer')).toBeInTheDocument();
         });
 
-        fireEvent.click(screen.getByText('Add Customer'));
+        fireEvent.click(screen.getAllByText('Add Customer').at(-1)!);
         
         await waitFor(() => {
           expect(screen.getByText('Add New Customer')).toBeInTheDocument();
         });
 
-        const icoInput = screen.getByPlaceholderText('Enter IČO');
+        const icoInput = screen.getAllByPlaceholderText('Enter IČO').at(-1)!;
         
         await act(async () => {
           fireEvent.change(icoInput, { target: { value: '12345678' } });
@@ -318,13 +318,13 @@ describe('CustomersPage ARES Integration', () => {
         expect(screen.getByText('Add Customer')).toBeInTheDocument();
       });
 
-      fireEvent.click(screen.getByText('Add Customer'));
+      fireEvent.click(screen.getAllByText('Add Customer').at(-1)!);
       
       await waitFor(() => {
         expect(screen.getByText('Add New Customer')).toBeInTheDocument();
       });
 
-      const icoInput = screen.getByPlaceholderText('Enter IČO');
+      const icoInput = screen.getAllByPlaceholderText('Enter IČO').at(-1)!;
       
       await act(async () => {
         fireEvent.change(icoInput, { target: { value: '12345678' } });

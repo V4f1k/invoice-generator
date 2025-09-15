@@ -10,10 +10,17 @@ import { LocaleProvider } from '@/app/lib/locale-provider';
 import enMessages from '../../../../messages/en.json';
 import csMessages from '../../../../messages/cs.json';
 
-// Mock window.location.reload
+// Mock window.location.reload safely
 const mockReload = jest.fn();
-delete window.location;
-window.location = { reload: mockReload };
+Object.defineProperty(window, 'location', {
+  value: {
+    ...window.location,
+    reload: mockReload,
+    assign: jest.fn(),
+    replace: jest.fn(),
+  },
+  writable: true,
+});
 
 // Mock document.cookie
 Object.defineProperty(document, 'cookie', {

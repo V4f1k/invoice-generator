@@ -21,6 +21,15 @@ jest.mock('@/app/lib/api', () => ({
   },
   customerApi: {
     list: jest.fn().mockResolvedValue([])
+  },
+  supplierApi: {
+    get: jest.fn().mockResolvedValue({ isNonVatPayer: false })
+  },
+  aresApi: {
+    lookup: jest.fn().mockResolvedValue({
+      name: 'ARES Client',
+      address: { street: 'Street', city: 'City', zipCode: '00000', country: 'Czech Republic' }
+    })
   }
 }));
 

@@ -1,22 +1,19 @@
 import '@testing-library/jest-dom';
 
-// Mock next-intl
-jest.mock('next-intl', () => ({
-  useTranslations: (namespace = '') => (key) => {
-    // Simple mock that returns the key for testing
-    return namespace ? `${namespace}.${key}` : key;
-  },
-  useLocale: () => 'en',
-  useFormatter: () => ({
-    dateTime: (date) => new Date(date).toLocaleDateString(),
-    number: (num, opts) => {
-      if (opts?.style === 'currency') {
-        return `$${num}`;
-      }
-      return String(num);
-    }
-  })
-}));
+// Fully mock next-intl (avoid importing ESM module in Jest)
+jest.mock('next-intl', () => {
+  return {
+    // Simple passthrough provider
+    NextIntlClientProvider: ({ children }) => children,
+    useTranslations: (namespace = '') => (key) =>
+      (namespace ? `${namespace}.${key}` : key),
+    useLocale: () => 'en',
+    useFormatter: () => ({
+      dateTime: (date) => new Date(date).toLocaleDateString(),
+      number: (num, opts) => (opts?.style === 'currency' ? `$${num}` : String(num)),
+    }),
+  };
+});
 
 // Mock Next.js navigation
 jest.mock('next/navigation', () => ({
@@ -31,7 +28,24 @@ jest.mock('next/navigation', () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 
-// Mock window.location.reload only if it exists
-if (window.location && typeof window.location.reload === 'undefined') {
-  window.location.reload = jest.fn();
+// Mock navigation APIs that jsdom doesn't implement
+try {
+  Object.defineProperty(window, 'location', {
+    value: {
+      ...window.location,
+      assign: jest.fn(),
+      replace: jest.fn(),
+      reload: jest.fn(),
+    },
+    writable: true,
+  });
+} catch {}
+
+// Shim ResizeObserver used by Radix UI
+class MockResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
 }
+// @ts-ignore
+global.ResizeObserver = global.ResizeObserver || MockResizeObserver;
