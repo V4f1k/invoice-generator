@@ -28,7 +28,10 @@ describe('Invoice API', () => {
       data: {
         userId: user.id,
         name: 'Test Supplier Inc.',
-        address: '123 Business St\nTest City, TC 12345',
+        street: '123 Business St',
+        city: 'Test City',
+        zipCode: 'TC 12345',
+        country: 'Czech Republic',
         ico: '12345678',
         dic: 'CZ12345678',
         isNonVatPayer: false,
@@ -52,7 +55,10 @@ describe('Invoice API', () => {
   describe('POST /api/v1/invoices', () => {
     const validInvoiceData = {
       clientName: 'Test Client Corp',
-      clientAddress: '456 Client Ave\nClient City, CC 67890',
+      clientStreet: '456 Client Ave',
+      clientCity: 'Client City',
+      clientZipCode: 'CC 67890',
+      clientCountry: 'Czech Republic',
       issueDate: '2025-08-29',
       dueDate: '2025-09-29',
       items: [
@@ -231,7 +237,10 @@ describe('Invoice API', () => {
         data: {
           userId: otherUser.id,
           name: 'Other Supplier',
-          address: '789 Other St',
+          street: '789 Other St',
+          city: 'Other City',
+          zipCode: '12345',
+          country: 'Czech Republic',
         },
       });
 
@@ -284,7 +293,10 @@ describe('Invoice API', () => {
         data: {
           userId: newUser.id,
           name: 'Empty Supplier',
-          address: '999 Empty St',
+          street: '999 Empty St',
+          city: 'Empty City',
+          zipCode: '99999',
+          country: 'Czech Republic',
         },
       });
 
@@ -739,7 +751,10 @@ describe('Invoice API', () => {
         data: {
           userId: nonVatUser.id,
           name: 'Non-VAT Payer Company',
-          address: 'Non-VAT Street 123\nNon-VAT City, NVC 12345',
+          street: 'Non-VAT Street 123',
+          city: 'Non-VAT City',
+          zipCode: 'NVC 12345',
+          country: 'Czech Republic',
           ico: '87654321',
           isNonVatPayer: true, // No DIČ for non-VAT payers
         },

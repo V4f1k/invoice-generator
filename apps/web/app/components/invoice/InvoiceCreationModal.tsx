@@ -12,6 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../../../compo
 import { Button } from '../../../components/ui/button';
 import { Input } from '../../../components/ui/input';
 import { Label } from '../../../components/ui/label';
+import { Textarea } from '../../../components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Checkbox } from '../../../components/ui/checkbox';
 import { Plus, Trash2, Calendar, Loader2 } from 'lucide-react';
@@ -36,6 +37,7 @@ const invoiceSchema = z.object({
   issueDate: z.string().min(1, 'Issue date is required'),
   dueDate: z.string().min(1, 'Due date is required'),
   duzp: z.string().optional(),
+  description: z.string().optional(),
   items: z.array(invoiceItemSchema).min(1, 'At least one item is required'),
   isReverseCharge: z.boolean().optional().default(false),
 });
@@ -79,6 +81,7 @@ export function InvoiceCreationModal({ isOpen, onClose }: InvoiceCreationModalPr
       issueDate: currentDate,
       dueDate: calculateDueDate(currentDate), // 14 days from issue date
       duzp: currentDate, // Default to issue date
+      description: '',
       items: [{ description: '', quantity: 1, unitPrice: 1, vatRate: 21 }],
       isReverseCharge: false,
     },
@@ -227,6 +230,7 @@ export function InvoiceCreationModal({ isOpen, onClose }: InvoiceCreationModalPr
         issueDate: data.issueDate,
         dueDate: data.dueDate,
         duzp: data.duzp,
+        description: data.description,
         items: data.items.map(item => ({
           description: item.description,
           quantity: item.quantity,
@@ -244,11 +248,14 @@ export function InvoiceCreationModal({ isOpen, onClose }: InvoiceCreationModalPr
       
       console.log('Invoice created successfully:', createdInvoice);
       
+      console.log('✅ Faktúra úspěšne vytvorená:', createdInvoice);
+      
       // Reset form and close modal
       form.reset();
       onClose();
       
       // Redirect to invoice view page
+      console.log('➡️ Přesměrovávám na:', `/invoices/${createdInvoice.id}`);
       router.push(`/invoices/${createdInvoice.id}`);
       
     } catch (error: unknown) {
@@ -513,6 +520,29 @@ export function InvoiceCreationModal({ isOpen, onClose }: InvoiceCreationModalPr
                   </div>
                 </div>
               )}
+            </CardContent>
+          </Card>
+
+          {/* Invoice Description */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Popis</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div>
+                <Label htmlFor="description">Popis faktury (nepovinné)</Label>
+                <Textarea
+                  id="description"
+                  {...form.register('description')}
+                  placeholder="Popište služby nebo zboží..."
+                  rows={3}
+                />
+                {form.formState.errors.description && (
+                  <p className="text-sm text-red-600 mt-1">
+                    {form.formState.errors.description.message}
+                  </p>
+                )}
+              </div>
             </CardContent>
           </Card>
 

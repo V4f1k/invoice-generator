@@ -74,6 +74,7 @@ model Invoice {
   issueDate      DateTime      @map("issue_date")
   dueDate        DateTime      @map("due_date")
   duzp           DateTime?     @map("duzp")
+  description    String?
   subtotal       Decimal       @default(0) @db.Decimal(10, 2)
   vatAmount      Decimal       @default(0) @map("vat_amount") @db.Decimal(10, 2)
   total          Decimal       @default(0) @db.Decimal(10, 2)

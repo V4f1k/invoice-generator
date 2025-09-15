@@ -21,9 +21,7 @@ export function generateRegistrationText(supplier: {
       }
       break;
     case 'zivnostensky_rejstrik':
-      if (registrationCourt) {
-        return `Podnikatel je zapsán v živnostenském rejstříku vedeném ${registrationCourt}`;
-      }
+      return `Fyzická osoba zapsaná v živnostenském rejstříku`;
       break;
     case 'jiny_rejstrik':
       if (registrationCourt && registrationFileNumber) {
@@ -58,17 +56,13 @@ const supplierSchema = z.object({
 router.get('/', async (req: Request, res: Response): Promise<void> => {
   try {
     const userId = req.userId;
-    
+
     const supplier = await prisma.supplier.findUnique({
       where: { userId },
     });
 
-    if (!supplier) {
-      res.status(404).json({ error: 'Supplier information not found' });
-      return;
-    }
-
-    res.json(supplier);
+    // Return null if no supplier exists yet (new user)
+    res.json(supplier || null);
   } catch (error) {
     console.error('Error fetching supplier:', error);
     res.status(500).json({ error: 'Internal server error' });

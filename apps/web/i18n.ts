@@ -6,14 +6,14 @@ export const locales = ['en', 'cs'] as const;
 
 export default getRequestConfig(async ({ locale }) => {
   // Try to get locale from cookie first
-  const cookieStore = await cookies();
+  const cookieStore = cookies();
   const cookieLocale = cookieStore.get('locale')?.value;
-  
-  // Use cookie locale if available, otherwise use provided locale or default to 'en'
-  const finalLocale = cookieLocale || locale || 'en';
-  
+
+  // Use cookie locale if available; fallback to provided locale or 'en'
+  const finalLocale = (cookieLocale || locale || 'en') as string;
+
   // Validate the locale
-  const validLocale = locales.includes(finalLocale as typeof locales[number]) ? finalLocale : 'en';
+  const validLocale = locales.includes(finalLocale as (typeof locales)[number]) ? finalLocale : 'en';
 
   return {
     locale: validLocale,

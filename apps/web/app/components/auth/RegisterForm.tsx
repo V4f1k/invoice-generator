@@ -50,8 +50,21 @@ export default function RegisterForm() {
       setUser(response.user);
       router.push('/dashboard');
     } catch (err: unknown) {
-      setError(err instanceof Error && 'response' in err && err.response && typeof err.response === 'object' && 'data' in err.response && err.response.data && typeof err.response.data === 'object' && 'error' in err.response.data ? String(err.response.data.error) : 'Registration failed');
       console.error('Registration error:', err);
+      
+      // Handle Axios errors
+      if (err && typeof err === 'object' && 'response' in err) {
+        const axiosError = err as { response: { status: number; data: { error: string } } };
+        if (axiosError.response?.status === 409) {
+          setError('Tento email už existuje. Zkuste se přihlásit.');
+        } else if (axiosError.response?.data?.error) {
+          setError(axiosError.response.data.error);
+        } else {
+          setError('Registrace se nezdařila. Zkuste to znovu.');
+        }
+      } else {
+        setError('Registrace se nezdařila. Zkuste to znovu.');
+      }
     } finally {
       setLoading(false);
     }

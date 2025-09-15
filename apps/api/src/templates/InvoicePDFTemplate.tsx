@@ -15,11 +15,14 @@ interface InvoiceData {
   issueDate: string;
   dueDate: string;
   duzp?: string | null;
+  description?: string | null;
   clientName: string;
   clientStreet?: string;
   clientCity?: string;
   clientZipCode?: string;
   clientCountry?: string;
+  clientIco?: string | null;
+  clientDic?: string | null;
   clientAddress: string; // Composed for backward compatibility
   subtotal: number;
   vatAmount: number;
@@ -261,15 +264,17 @@ const InvoicePDFTemplate: React.FC<InvoicePDFTemplateProps> = ({ invoice, transl
             marginBottom: '12px'
           }}>{invoice.clientAddress}</div>
           
-          {/* IČO a DIČ odběratele */}
-          <div style={{
-            fontSize: '13px',
-            color: '#6b7280',
-            marginBottom: '20px'
-          }}>
-            <div>IČO: 87654321 - hardcoded</div>
-            <div>DIČ: CZ87654321 - hardcoded</div>
-          </div>
+          {/* IČO a DIČ odběratele - only display if available */}
+          {(invoice.clientIco || invoice.clientDic) && (
+            <div style={{
+              fontSize: '13px',
+              color: '#6b7280',
+              marginBottom: '20px'
+            }}>
+              {invoice.clientIco && <div>IČO: {invoice.clientIco}</div>}
+              {invoice.clientDic && <div>DIČ: {invoice.clientDic}</div>}
+            </div>
+          )}
 
           {/* Data vystavení a splatnosti */}
           <div style={{
@@ -310,6 +315,34 @@ const InvoicePDFTemplate: React.FC<InvoicePDFTemplateProps> = ({ invoice, transl
           </div>
         </div>
       </div>
+
+      {/* Invoice Description */}
+      {invoice.description && (
+        <div style={{
+          marginBottom: '25px',
+          padding: '20px',
+          background: '#f9fafb',
+          borderRadius: '8px',
+          border: '1px solid #e5e7eb'
+        }}>
+          <div style={{
+            fontSize: '12px',
+            fontWeight: '600',
+            textTransform: 'uppercase',
+            color: '#6b7280',
+            marginBottom: '12px',
+            letterSpacing: '0.5px'
+          }}>Popis</div>
+          <div style={{
+            fontSize: '14px',
+            color: '#1f2937',
+            lineHeight: '1.6',
+            whiteSpace: 'pre-wrap'
+          }}>
+            {invoice.description}
+          </div>
+        </div>
+      )}
 
       <table style={{
         width: '100%',

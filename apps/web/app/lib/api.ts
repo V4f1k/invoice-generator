@@ -180,7 +180,7 @@ export const authApi = {
 };
 
 export const supplierApi = {
-  get: async (): Promise<Supplier> => {
+  get: async (): Promise<Supplier | null> => {
     const response = await api.get('/api/v1/supplier');
     return response.data;
   },
@@ -204,6 +204,13 @@ export const invoiceApi = {
 
   list: async (): Promise<Invoice[]> => {
     const response = await api.get('/api/v1/invoices');
+    return response.data;
+  },
+
+  downloadPdf: async (id: string, language: string = 'en'): Promise<Blob> => {
+    const response = await api.get(`/api/v1/invoices/${id}/pdf?lang=${language}`, {
+      responseType: 'blob',
+    });
     return response.data;
   },
 };

@@ -162,7 +162,7 @@ describe('Mandatory Elements - Story 1.12', () => {
         registrationFileNumber: null,
       });
 
-      expect(text).toBe('Podnikatel je zapsán v živnostenském rejstříku vedeném Živnostenským úřadem Praha 1');
+      expect(text).toBe('Fyzická osoba zapsaná v živnostenském rejstříku');
     });
 
     it('should generate correct text for other register', () => {

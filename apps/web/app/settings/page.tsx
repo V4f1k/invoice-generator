@@ -72,31 +72,30 @@ export default function SettingsPage() {
       try {
         setLoading(true);
         const data = await supplierApi.get();
-        form.reset({
-          name: data.name,
-          street: data.street,
-          city: data.city,
-          zipCode: data.zipCode,
-          country: data.country,
-          ico: data.ico || '',
-          dic: data.dic || '',
-          bankAccount: data.bankAccount || '',
-          isNonVatPayer: data.isNonVatPayer || false,
-          registrationType: data.registrationType || '',
-          registrationCourt: data.registrationCourt || '',
-          registrationFileNumber: data.registrationFileNumber || '',
-          automaticLegalText: data.automaticLegalText || '',
-        });
-        setAutomaticLegalText(data.automaticLegalText || '');
+
+        // If data is null (no supplier exists yet), use default values
+        if (data) {
+          form.reset({
+            name: data.name,
+            street: data.street,
+            city: data.city,
+            zipCode: data.zipCode,
+            country: data.country,
+            ico: data.ico || '',
+            dic: data.dic || '',
+            bankAccount: data.bankAccount || '',
+            isNonVatPayer: data.isNonVatPayer || false,
+            registrationType: data.registrationType || '',
+            registrationCourt: data.registrationCourt || '',
+            registrationFileNumber: data.registrationFileNumber || '',
+            automaticLegalText: data.automaticLegalText || '',
+          });
+          setAutomaticLegalText(data.automaticLegalText || '');
+        }
         setError(null);
       } catch (err: unknown) {
-        if (err instanceof Error && 'response' in err && err.response && typeof err.response === 'object' && 'status' in err.response && err.response.status === 404) {
-          // No supplier info exists yet, that's fine
-          setError(null);
-        } else {
-          setError('Failed to load supplier information');
-          console.error('Error loading supplier:', err);
-        }
+        setError('Failed to load supplier information');
+        console.error('Error loading supplier:', err);
       } finally {
         setLoading(false);
       }

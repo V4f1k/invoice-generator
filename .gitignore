@@ -50,6 +50,12 @@ coverage/
 tmp/
 temp/
 
+# Turborepo cache
+.turbo/
+
+# Local cookies or session data
+apps/api/cookies.txt
+
 # Package lock files (optional, depending on preference)
 # package-lock.json
 # yarn.lock

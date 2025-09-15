@@ -1,0 +1,11 @@
+import { NextRequest, NextResponse } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  // Temporarily disable i18n middleware to test
+  return NextResponse.next();
+}
+
+export const config = {
+  // Match only internationalized pathnames  
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+};
