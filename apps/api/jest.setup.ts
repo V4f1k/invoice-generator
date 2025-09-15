@@ -22,9 +22,42 @@ if (!process.env.JWT_SECRET) {
 jest.mock('@prisma/client', () => {
   const mockPrisma = {
     invoice: {
-      findMany: jest.fn().mockResolvedValue([]),
-      findUnique: jest.fn().mockResolvedValue(null),
-      create: jest.fn().mockResolvedValue({
+      findMany: jest.fn().mockResolvedValue([
+        {
+          id: 'test-invoice-id-1',
+          invoiceNumber: BigInt('250115001'),
+          clientName: 'Test Client 1',
+          clientStreet: 'Test Street 1',
+          clientCity: 'Test City',
+          clientZipCode: '12345',
+          clientCountry: 'Czech Republic',
+          subtotal: { toNumber: () => 100 },
+          vatAmount: { toNumber: () => 21 },
+          total: { toNumber: () => 121 },
+          isReverseCharge: false,
+          items: [
+            {
+              id: 'test-item-id-1',
+              description: 'Test Item 1',
+              quantity: { toNumber: () => 1 },
+              unitPrice: { toNumber: () => 100 },
+              lineTotal: { toNumber: () => 100 },
+              vatRate: { toNumber: () => 21 }
+            }
+          ],
+          supplier: {
+            id: 'test-supplier-id',
+            name: 'Test Supplier',
+            street: 'Supplier Street',
+            city: 'Supplier City',
+            zipCode: '54321',
+            country: 'Czech Republic',
+            address: 'Supplier Street\n54321 Supplier City\nCzech Republic'
+          },
+          customer: null
+        }
+      ]),
+      findUnique: jest.fn().mockResolvedValue({
         id: 'test-invoice-id',
         invoiceNumber: BigInt('250115001'),
         clientName: 'Test Client',
@@ -32,17 +65,18 @@ jest.mock('@prisma/client', () => {
         clientCity: 'Test City',
         clientZipCode: '12345',
         clientCountry: 'Czech Republic',
-        subtotal: 100,
-        vatAmount: 21,
-        total: 121,
+        subtotal: { toNumber: () => 100 },
+        vatAmount: { toNumber: () => 21 },
+        total: { toNumber: () => 121 },
+        isReverseCharge: false,
         items: [
           {
             id: 'test-item-id',
             description: 'Test Item',
-            quantity: 1,
-            unitPrice: 100,
-            lineTotal: 100,
-            vatRate: 21
+            quantity: { toNumber: () => 1 },
+            unitPrice: { toNumber: () => 100 },
+            lineTotal: { toNumber: () => 100 },
+            vatRate: { toNumber: () => 21 }
           }
         ],
         supplier: {
@@ -51,10 +85,51 @@ jest.mock('@prisma/client', () => {
           street: 'Supplier Street',
           city: 'Supplier City',
           zipCode: '54321',
-          country: 'Czech Republic'
-        }
+          country: 'Czech Republic',
+          address: 'Supplier Street\n54321 Supplier City\nCzech Republic'
+        },
+        customer: null
       }),
-      update: jest.fn().mockResolvedValue({ id: 'test-invoice-id', items: [] }),
+      create: jest.fn().mockResolvedValue({
+        id: 'test-invoice-id',
+        invoiceNumber: BigInt('250115001'),
+        clientName: 'Test Client',
+        clientStreet: 'Test Street',
+        clientCity: 'Test City',
+        clientZipCode: '12345',
+        clientCountry: 'Czech Republic',
+        subtotal: { toNumber: () => 100 },
+        vatAmount: { toNumber: () => 21 },
+        total: { toNumber: () => 121 },
+        isReverseCharge: false,
+        items: [
+          {
+            id: 'test-item-id',
+            description: 'Test Item',
+            quantity: { toNumber: () => 1 },
+            unitPrice: { toNumber: () => 100 },
+            lineTotal: { toNumber: () => 100 },
+            vatRate: { toNumber: () => 21 }
+          }
+        ],
+        supplier: {
+          id: 'test-supplier-id',
+          name: 'Test Supplier',
+          street: 'Supplier Street',
+          city: 'Supplier City',
+          zipCode: '54321',
+          country: 'Czech Republic',
+          address: 'Supplier Street\n54321 Supplier City\nCzech Republic'
+        },
+        customer: null
+      }),
+      update: jest.fn().mockResolvedValue({
+        id: 'test-invoice-id',
+        items: [],
+        subtotal: { toNumber: () => 0 },
+        vatAmount: { toNumber: () => 0 },
+        total: { toNumber: () => 0 }
+      }),
       delete: jest.fn().mockResolvedValue({ id: 'test-invoice-id' }),
       deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
       count: jest.fn().mockResolvedValue(0),
