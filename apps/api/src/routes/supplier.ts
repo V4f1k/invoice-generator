@@ -22,7 +22,6 @@ export function generateRegistrationText(supplier: {
       break;
     case 'zivnostensky_rejstrik':
       return `Fyzická osoba zapsaná v živnostenském rejstříku`;
-      break;
     case 'jiny_rejstrik':
       if (registrationCourt && registrationFileNumber) {
         return `Zápis v rejstříku: ${registrationCourt}, ${registrationFileNumber}`;
