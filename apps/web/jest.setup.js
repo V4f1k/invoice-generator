@@ -47,5 +47,5 @@ class MockResizeObserver {
   unobserve() {}
   disconnect() {}
 }
-// @ts-ignore
+// @ts-expect-error ResizeObserver is not defined in test environment
 global.ResizeObserver = global.ResizeObserver || MockResizeObserver;
