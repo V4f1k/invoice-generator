@@ -40,10 +40,14 @@ describe('Database Migrations - Invoice Tables', () => {
         expect(columnNames).toContain('id');
         expect(columnNames).toContain('supplier_id');
         expect(columnNames).toContain('client_name');
-        expect(columnNames).toContain('client_address');
+        expect(columnNames).toContain('client_street');
+        expect(columnNames).toContain('client_city');
+        expect(columnNames).toContain('client_zip_code');
+        expect(columnNames).toContain('client_country');
         expect(columnNames).toContain('issue_date');
         expect(columnNames).toContain('due_date');
         expect(columnNames).toContain('subtotal');
+        expect(columnNames).toContain('vat_amount');
         expect(columnNames).toContain('total');
         expect(columnNames).toContain('created_at');
         expect(columnNames).toContain('updated_at');
