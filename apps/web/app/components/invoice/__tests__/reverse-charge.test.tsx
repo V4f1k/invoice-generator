@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { useForm } from 'react-hook-form';
 import { InvoiceCreationModal } from '../InvoiceCreationModal';
 import { invoiceApi, supplierApi } from '../../../lib/api';
@@ -117,11 +117,13 @@ describe('InvoiceCreationModal - Reverse Charge', () => {
       return '';
     });
 
-    render(
-      <TestWrapper>
-        <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
-      </TestWrapper>
-    );
+    await act(async () => {
+      render(
+        <TestWrapper>
+          <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
+        </TestWrapper>
+      );
+    });
 
     await waitFor(() => {
       expect(screen.getByText('Přenesená daňová povinnost (Reverse Charge)')).toBeInTheDocument();
@@ -147,11 +149,13 @@ describe('InvoiceCreationModal - Reverse Charge', () => {
       return '';
     });
 
-    render(
-      <TestWrapper>
-        <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
-      </TestWrapper>
-    );
+    await act(async () => {
+      render(
+        <TestWrapper>
+          <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
+        </TestWrapper>
+      );
+    });
 
     await waitFor(() => {
       expect(screen.queryByText('Přenesená daňová povinnost (Reverse Charge)')).not.toBeInTheDocument();
@@ -166,19 +170,21 @@ describe('InvoiceCreationModal - Reverse Charge', () => {
       return '';
     });
 
-    render(
-      <TestWrapper>
-        <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
-      </TestWrapper>
-    );
+    await act(async () => {
+      render(
+        <TestWrapper>
+          <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
+        </TestWrapper>
+      );
+    });
 
     await waitFor(() => {
       // VAT Rate column should be hidden
       expect(screen.queryByText('VAT Rate')).not.toBeInTheDocument();
-      
+
       // VAT Amount should be hidden in totals
       expect(screen.queryByText('VAT Amount:')).not.toBeInTheDocument();
-      
+
       // Should show reverse charge text
       expect(screen.getByText('Daň odvede zákazník')).toBeInTheDocument();
     });
@@ -192,19 +198,21 @@ describe('InvoiceCreationModal - Reverse Charge', () => {
       return '';
     });
 
-    render(
-      <TestWrapper>
-        <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
-      </TestWrapper>
-    );
+    await act(async () => {
+      render(
+        <TestWrapper>
+          <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
+        </TestWrapper>
+      );
+    });
 
     await waitFor(() => {
       // VAT Rate should be shown
       expect(screen.getByText('VAT Rate')).toBeInTheDocument();
-      
+
       // VAT Amount should be shown in totals
       expect(screen.getByText('VAT Amount:')).toBeInTheDocument();
-      
+
       // Should not show reverse charge text
       expect(screen.queryByText('Daň odvede zákazník')).not.toBeInTheDocument();
     });
@@ -213,7 +221,7 @@ describe('InvoiceCreationModal - Reverse Charge', () => {
   it('should send isReverseCharge flag when creating invoice', async () => {
     const mockHandleSubmit = jest.fn((callback) => callback);
     mockFormMethods.handleSubmit.mockImplementation(mockHandleSubmit);
-    
+
     mockFormMethods.watch.mockImplementation((field) => {
       if (field === 'items') return [{ description: 'Test', quantity: 1, unitPrice: 1000, vatRate: 21 }];
       if (field === 'issueDate') return '2025-08-31';
@@ -221,14 +229,18 @@ describe('InvoiceCreationModal - Reverse Charge', () => {
       return '';
     });
 
-    render(
-      <TestWrapper>
-        <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
-      </TestWrapper>
-    );
+    await act(async () => {
+      render(
+        <TestWrapper>
+          <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
+        </TestWrapper>
+      );
+    });
 
     const createButton = screen.getByText('Create Invoice');
-    fireEvent.click(createButton);
+    await act(async () => {
+      fireEvent.click(createButton);
+    });
 
     await waitFor(() => {
       expect(mockInvoiceApi.create).toHaveBeenCalledWith(
@@ -246,7 +258,7 @@ describe('InvoiceCreationModal - Reverse Charge', () => {
 
   it('should reset VAT rates to 0 when enabling reverse charge', async () => {
     const reverseChargeState = false;
-    
+
     mockFormMethods.watch.mockImplementation((field) => {
       if (field === 'items') return [{ description: 'Test', quantity: 1, unitPrice: 1000, vatRate: 21 }];
       if (field === 'issueDate') return '2025-08-31';
@@ -254,21 +266,25 @@ describe('InvoiceCreationModal - Reverse Charge', () => {
       return '';
     });
 
-    render(
-      <TestWrapper>
-        <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
-      </TestWrapper>
-    );
+    await act(async () => {
+      render(
+        <TestWrapper>
+          <InvoiceCreationModal isOpen={true} onClose={jest.fn()} />
+        </TestWrapper>
+      );
+    });
 
     const checkbox = screen.getByRole('checkbox');
-    
+
     // Simulate checking the reverse charge checkbox
-    fireEvent.click(checkbox);
-    
+    await act(async () => {
+      fireEvent.click(checkbox);
+    });
+
     await waitFor(() => {
       // Should call setValue to enable reverse charge
       expect(mockFormMethods.setValue).toHaveBeenCalledWith('isReverseCharge', true);
-      
+
       // Should reset item VAT rates to 0
       expect(mockFormMethods.setValue).toHaveBeenCalledWith(
         'items',
