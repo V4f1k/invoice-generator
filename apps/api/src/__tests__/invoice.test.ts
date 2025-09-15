@@ -984,7 +984,7 @@ describe('Invoice API', () => {
       expect(dbInvoice!.vatAmount.toNumber()).toBe(0);
       
       // Verify item VAT rates are set to null
-      dbInvoice!.items.forEach(item => {
+      dbInvoice!.items.forEach((item: any) => {
         expect(item.vatRate).toBeNull();
       });
     });

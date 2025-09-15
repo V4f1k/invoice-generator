@@ -141,7 +141,10 @@ describe('Supplier API Endpoints', () => {
       expect(response.body).toMatchObject({
         userId: testUser.id,
         name: validSupplierData.name,
-        address: validSupplierData.address,
+        street: validSupplierData.street,
+        city: validSupplierData.city,
+        zipCode: validSupplierData.zipCode,
+        country: validSupplierData.country,
         ico: validSupplierData.ico,
         dic: validSupplierData.dic,
         bankAccount: validSupplierData.bankAccount,

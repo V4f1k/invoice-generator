@@ -114,7 +114,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
     while (attempts < maxAttempts) {
       try {
         // Use transaction for atomic operation
-        result = await prisma.$transaction(async (tx) => {
+        result = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
           // Generate sequential invoice number within transaction
           const invoiceNumber = await generateInvoiceNumber(supplier.id, tx);
 
@@ -303,7 +303,7 @@ router.get('/', async (req: Request, res: Response): Promise<void> => {
     });
 
     // Convert BigInt to string for JSON serialization
-    const response = invoices.map(invoice => ({
+    const response = invoices.map((invoice: any) => ({
       ...invoice,
       invoiceNumber: invoice.invoiceNumber.toString()
     }));
@@ -380,7 +380,7 @@ router.get('/:id/pdf', async (req: Request, res: Response): Promise<void> => {
       total: invoice.total.toNumber(),
       isReverseCharge: invoice.isReverseCharge,
       items: Array.isArray(invoice.items)
-        ? invoice.items.map(item => ({
+        ? invoice.items.map((item: any) => ({
             description: item.description,
             quantity: item.quantity.toNumber(),
             unitPrice: item.unitPrice.toNumber(),
