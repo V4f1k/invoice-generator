@@ -100,7 +100,10 @@ describe('Invoice API', () => {
       expect(invoiceNumber.toString().endsWith('0001')).toBe(true);
       
       expect(response.body.clientName).toBe(validInvoiceData.clientName);
-      expect(response.body.clientAddress).toBe(validInvoiceData.clientAddress);
+      expect(response.body.clientStreet).toBe(validInvoiceData.clientStreet);
+      expect(response.body.clientCity).toBe(validInvoiceData.clientCity);
+      expect(response.body.clientZipCode).toBe(validInvoiceData.clientZipCode);
+      expect(response.body.clientCountry).toBe(validInvoiceData.clientCountry);
       expect(Number(response.body.subtotal)).toBe(1750); // 10*100 + 5*150
       expect(Number(response.body.total)).toBe(1750);
       expect(response.body.items).toHaveLength(2);
@@ -135,7 +138,10 @@ describe('Invoice API', () => {
     it('should return 400 with invalid data', async () => {
       const invalidData = {
         clientName: '', // Empty required field
-        clientAddress: validInvoiceData.clientAddress,
+        clientStreet: validInvoiceData.clientStreet,
+        clientCity: validInvoiceData.clientCity,
+        clientZipCode: validInvoiceData.clientZipCode,
+        clientCountry: validInvoiceData.clientCountry,
         issueDate: validInvoiceData.issueDate,
         dueDate: validInvoiceData.dueDate,
         items: validInvoiceData.items,

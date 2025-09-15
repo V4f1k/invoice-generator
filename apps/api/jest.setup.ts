@@ -24,9 +24,39 @@ jest.mock('@prisma/client', () => {
     invoice: {
       findMany: jest.fn().mockResolvedValue([]),
       findUnique: jest.fn().mockResolvedValue(null),
-      create: jest.fn().mockResolvedValue({ id: 'test-invoice-id' }),
-      update: jest.fn().mockResolvedValue({ id: 'test-invoice-id' }),
+      create: jest.fn().mockResolvedValue({
+        id: 'test-invoice-id',
+        invoiceNumber: BigInt('250115001'),
+        clientName: 'Test Client',
+        clientStreet: 'Test Street',
+        clientCity: 'Test City',
+        clientZipCode: '12345',
+        clientCountry: 'Czech Republic',
+        subtotal: 100,
+        vatAmount: 21,
+        total: 121,
+        items: [
+          {
+            id: 'test-item-id',
+            description: 'Test Item',
+            quantity: 1,
+            unitPrice: 100,
+            lineTotal: 100,
+            vatRate: 21
+          }
+        ],
+        supplier: {
+          id: 'test-supplier-id',
+          name: 'Test Supplier',
+          street: 'Supplier Street',
+          city: 'Supplier City',
+          zipCode: '54321',
+          country: 'Czech Republic'
+        }
+      }),
+      update: jest.fn().mockResolvedValue({ id: 'test-invoice-id', items: [] }),
       delete: jest.fn().mockResolvedValue({ id: 'test-invoice-id' }),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
       count: jest.fn().mockResolvedValue(0),
     },
     invoiceItem: {
@@ -35,6 +65,7 @@ jest.mock('@prisma/client', () => {
       create: jest.fn().mockResolvedValue({ id: 'test-item-id' }),
       update: jest.fn().mockResolvedValue({ id: 'test-item-id' }),
       delete: jest.fn().mockResolvedValue({ id: 'test-item-id' }),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
     },
     customer: {
       findMany: jest.fn().mockResolvedValue([]),
@@ -42,6 +73,7 @@ jest.mock('@prisma/client', () => {
       create: jest.fn().mockResolvedValue({ id: 'test-customer-id' }),
       update: jest.fn().mockResolvedValue({ id: 'test-customer-id' }),
       delete: jest.fn().mockResolvedValue({ id: 'test-customer-id' }),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
     },
     supplier: {
       findMany: jest.fn().mockResolvedValue([]),
@@ -49,6 +81,7 @@ jest.mock('@prisma/client', () => {
       create: jest.fn().mockResolvedValue({ id: 'test-supplier-id' }),
       update: jest.fn().mockResolvedValue({ id: 'test-supplier-id' }),
       delete: jest.fn().mockResolvedValue({ id: 'test-supplier-id' }),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
     },
     user: {
       findMany: jest.fn().mockResolvedValue([]),
@@ -56,6 +89,7 @@ jest.mock('@prisma/client', () => {
       create: jest.fn().mockResolvedValue({ id: 'test-user-id' }),
       update: jest.fn().mockResolvedValue({ id: 'test-user-id' }),
       delete: jest.fn().mockResolvedValue({ id: 'test-user-id' }),
+      deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
     },
     $disconnect: jest.fn().mockResolvedValue(undefined),
     $connect: jest.fn().mockResolvedValue(undefined),
